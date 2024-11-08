@@ -8,6 +8,7 @@ interface DataType {
   chinese: number
   math: number
   english: number
+  status: string
 }
 
 const columns: TableColumnsType<DataType> = [
@@ -39,6 +40,10 @@ const columns: TableColumnsType<DataType> = [
       multiple: 1,
     },
   },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+  },
 ]
 
 const data: DataType[] = [
@@ -48,6 +53,7 @@ const data: DataType[] = [
     chinese: 98,
     math: 60,
     english: 70,
+    status: 'Pending',
   },
   {
     key: '2',
@@ -55,6 +61,7 @@ const data: DataType[] = [
     chinese: 98,
     math: 66,
     english: 89,
+    status: 'Pending',
   },
   {
     key: '3',
@@ -62,6 +69,7 @@ const data: DataType[] = [
     chinese: 98,
     math: 90,
     english: 70,
+    status: 'Pending',
   },
   {
     key: '4',
@@ -69,6 +77,7 @@ const data: DataType[] = [
     chinese: 88,
     math: 99,
     english: 89,
+    status: 'Passed',
   },
 ]
 
