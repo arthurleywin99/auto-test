@@ -14,12 +14,12 @@ interface DataType {
 
 const columns: TableColumnsType<DataType> = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-  },
-  {
     title: 'Idx',
     dataIndex: 'idx',
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name',
   },
   {
     title: 'Chinese Score',
