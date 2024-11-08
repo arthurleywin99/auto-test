@@ -4,6 +4,7 @@ import type { TableColumnsType, TableProps } from 'antd'
 
 interface DataType {
   key: React.Key
+  idx: string
   name: string
   chinese: number
   math: number
@@ -15,6 +16,10 @@ const columns: TableColumnsType<DataType> = [
   {
     title: 'Name',
     dataIndex: 'name',
+  },
+  {
+    title: 'Idx',
+    dataIndex: 'idx',
   },
   {
     title: 'Chinese Score',
@@ -49,6 +54,7 @@ const columns: TableColumnsType<DataType> = [
 const data: DataType[] = [
   {
     key: '1',
+    idx: '122',
     name: 'John Brown',
     chinese: 98,
     math: 60,
@@ -57,6 +63,7 @@ const data: DataType[] = [
   },
   {
     key: '2',
+    idx: '123',
     name: 'Jim Green',
     chinese: 98,
     math: 66,
@@ -65,6 +72,7 @@ const data: DataType[] = [
   },
   {
     key: '3',
+    idx: '124',
     name: 'Joe Black',
     chinese: 98,
     math: 90,
@@ -73,6 +81,7 @@ const data: DataType[] = [
   },
   {
     key: '4',
+    idx: '125',
     name: 'Jim Red',
     chinese: 88,
     math: 99,
