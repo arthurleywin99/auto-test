@@ -1,84 +1,83 @@
-import { Editor } from '@monaco-editor/react'
-import { Button, Select, Spin } from 'antd'
-import { useMemo, useState } from 'react'
-import axios from 'axios'
+import React from 'react'
+import { Table } from 'antd'
+import type { TableColumnsType, TableProps } from 'antd'
 
-function App() {
-  const [result, setResult] = useState<string>('')
-  const [code, setCode] = useState<string>('')
-  const [load, setLoad] = useState<boolean>(false)
-  const [lang, setLang] = useState('js')
-
-  const options = useMemo(
-    () => [
-      {
-        value: 'js',
-        label: 'JS',
-      },
-      {
-        value: 'python',
-        label: 'Python',
-      },
-      {
-        value: 'c++',
-        label: 'C++',
-      },
-      {
-        value: 'java',
-        label: 'java',
-      },
-    ],
-    []
-  )
-
-  const onRunClick = async () => {
-    setLoad(true)
-    const data = await axios.post('http://localhost:3000/code/run', {
-      language: lang,
-      code,
-    })
-    if (data.status === 201) {
-      setResult(data.data.result)
-    }
-    setLoad(false)
-  }
-
-  return (
-    <div
-      style={{
-        display: 'flex',
-      }}
-    >
-      <div>
-        <Select
-          style={{
-            width: '200px',
-            marginBottom: 10,
-          }}
-          value={lang}
-          options={options}
-          onChange={(value) => setLang(value)}
-        />
-        <Button onClick={() => onRunClick()}>Run</Button>
-      </div>
-
-      <Editor
-        height='80vh'
-        width='70%'
-        language={lang}
-        value={code}
-        onChange={(value) => setCode(value ?? '')}
-      />
-      <div
-        style={{
-          backgroundColor: '#f1f9f3',
-          width: '30%',
-        }}
-      >
-        {load ? <Spin spinning={true} /> : result}
-      </div>
-    </div>
-  )
+interface DataType {
+  key: React.Key
+  name: string
+  chinese: number
+  math: number
+  english: number
 }
+
+const columns: TableColumnsType<DataType> = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+  },
+  {
+    title: 'Chinese Score',
+    dataIndex: 'chinese',
+    sorter: {
+      compare: (a, b) => a.chinese - b.chinese,
+      multiple: 3,
+    },
+  },
+  {
+    title: 'Math Score',
+    dataIndex: 'math',
+    sorter: {
+      compare: (a, b) => a.math - b.math,
+      multiple: 2,
+    },
+  },
+  {
+    title: 'English Score',
+    dataIndex: 'english',
+    sorter: {
+      compare: (a, b) => a.english - b.english,
+      multiple: 1,
+    },
+  },
+]
+
+const data: DataType[] = [
+  {
+    key: '1',
+    name: 'John Brown',
+    chinese: 98,
+    math: 60,
+    english: 70,
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    chinese: 98,
+    math: 66,
+    english: 89,
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    chinese: 98,
+    math: 90,
+    english: 70,
+  },
+  {
+    key: '4',
+    name: 'Jim Red',
+    chinese: 88,
+    math: 99,
+    english: 89,
+  },
+]
+
+const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
+  console.log('params', pagination, filters, sorter, extra)
+}
+
+const App: React.FC = () => (
+  <Table<DataType> columns={columns} dataSource={data} onChange={onChange} />
+)
 
 export default App
